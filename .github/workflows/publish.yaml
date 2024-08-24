@@ -34,6 +34,7 @@ jobs:
         run: |
           cd publish
           npm install
-          npm publish
+          npm pkg fix
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
