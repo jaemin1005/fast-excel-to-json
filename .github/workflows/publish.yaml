@@ -38,4 +38,5 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd publish
+          npm i
           npm publish --access=public
