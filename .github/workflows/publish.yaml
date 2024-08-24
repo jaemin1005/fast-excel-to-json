@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '18'
 
       - name: Install wasm-pack
         run: cargo install wasm-pack
@@ -33,7 +33,7 @@ jobs:
       - name: Publish to npm
         run: |
           cd publish
-          npm ci
+          npm install
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
