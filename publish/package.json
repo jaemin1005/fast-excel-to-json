@@ -7,5 +7,15 @@
     "excel_to_json.d.ts"
   ],
   "main": "excel_to_json.js",
-  "types": "excel_to_json.d.ts"
+  "types": "excel_to_json.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaemin1005/fast-excel-to-json.git"
+  },
+  "author": "Your Name",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaemin1005/fast-excel-to-json/issues"
+  },
+  "homepage": "https://github.com/jaemin1005/fast-excel-to-json#readme"
 }
