@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/jaemin1005/fast-excel-to-json/issues"
   },
-  "homepage": "https://github.com/jaemin1005/fast-excel-to-json#readme"
+  "homepage": "https://github.com/jaemin1005/fast-excel-to-json#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }
