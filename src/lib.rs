@@ -3,6 +3,7 @@ use excel_time_func::{excel_time_to_unix_time::excel_time_to_unix_time, unix_to_
 use serde_json::json;
 use std::io::Cursor;
 use wasm_bindgen::prelude::*;
+use rayon::prelude::*;
 
 pub mod excel_time_func;
 
@@ -18,11 +19,13 @@ pub fn excel_to_json(excel_data: &[u8], is_iso8601: bool) -> Vec<String>{
 
     for sheet_name in workbook.sheet_names().to_owned() {
         if let Ok(range) = workbook.worksheet_range(&sheet_name) {
-            let mut rows_json = vec![];
             let headers = range.headers().unwrap();
 
-            for row in range.rows().into_iter().skip(1) {
-                //* ROW의 Cell 데이터들 match를 이용해 변환 */
+            //* 기존의 Rows<'_, Data>는 rayon의 ParallelIterator 트레이트를 구현하지 않기 때문에 into_par_iter를 직접 사용할 수 없기 때문에 변경 */
+            let rows: Vec<_> = range.rows().skip(1).collect();
+
+            //* rayon의 into_par_iter를 사용해 데이터를 병렬로 처리한다 */ 
+            let rows_json: Vec<_> = rows.into_par_iter().map(|row| {
                 let mut row_json = serde_json::Map::new();
 
                 for (header, cell) in headers.iter().zip(row.iter()) {
@@ -30,7 +33,6 @@ pub fn excel_to_json(excel_data: &[u8], is_iso8601: bool) -> Vec<String>{
                         calamine::Data::Empty => json!(null),
                         calamine::Data::Bool(b) => json!(b),
                         calamine::Data::Float(f) => {
-                            //* 실수형 0.0으로 끝날 때 정수형으로 변경 */
                             if f.fract() == 0.0 {
                                 let num = *f as i64;
                                 json!(num)
@@ -42,19 +44,19 @@ pub fn excel_to_json(excel_data: &[u8], is_iso8601: bool) -> Vec<String>{
                         calamine::Data::String(s) => json!(s),
                         calamine::Data::DateTime(dt) => {
                             let time = excel_time_to_unix_time(dt.as_f64());
-
                             if is_iso8601 {
                                 json!(unix_to_iso(time))
                             } else {
-                                json!(excel_time_to_unix_time(dt.as_f64()))
+                                json!(time)
                             }
                         }
                         _ => json!(null),
                     };
                     row_json.insert(header.to_string(), value);
                 }
-                rows_json.push(row_json);
-            }
+
+                row_json
+            }).collect();
 
             //* Json 직렬화한다 */
             let json_string = serde_json::to_string(&rows_json).unwrap();
