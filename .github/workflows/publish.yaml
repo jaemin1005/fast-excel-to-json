@@ -30,6 +30,10 @@ jobs:
       - name: Move files to publish directory
         run: rsync -av --exclude='package.json' --exclude='README.md' --exclude='.gitignore' pkg/ publish/ 
 
+       - name: Configure npm to use the registry
+          run: |
+          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
