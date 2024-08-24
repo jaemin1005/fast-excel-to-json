@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install wasm-pack
         run: cargo install wasm-pack
@@ -33,8 +34,8 @@ jobs:
       - name: Publish to npm
         run: |
           cd publish
-          npm install
           npm pkg fix
+          npm install
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
