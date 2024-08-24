@@ -28,7 +28,7 @@ jobs:
         run: wasm-pack build --target nodejs
 
       - name: Move files to publish directory
-        run: rsync -av --exclude='file-to-exclude.ext' pkg/ publish/
+        run: rsync -av --exclude='package.json' pkg/ publish/
 
       - name: Publish to npm
         env:
