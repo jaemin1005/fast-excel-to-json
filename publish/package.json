@@ -1,0 +1,11 @@
+{
+  "name": "excel_to_json",
+  "version": "0.1.0",
+  "files": [
+    "excel_to_json_bg.wasm",
+    "excel_to_json.js",
+    "excel_to_json.d.ts"
+  ],
+  "main": "excel_to_json.js",
+  "types": "excel_to_json.d.ts"
+}
