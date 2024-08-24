@@ -1,5 +1,5 @@
 {
-  "name": "excel_to_json",
+  "name": "fast-excel-to-json",
   "version": "0.1.0",
   "files": [
     "excel_to_json_bg.wasm",
