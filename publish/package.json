@@ -1,5 +1,5 @@
 {
-  "name": "@jm/fast-excel-to-json",
+  "name": "fast-excel-to-json",
   "version": "0.0.5",
   "private": false,
   "files": [
