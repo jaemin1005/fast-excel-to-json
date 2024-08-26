@@ -1,6 +1,6 @@
 {
   "name": "fast-excel-to-json",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "private": false,
   "files": [
     "excel_to_json_bg.wasm",
