@@ -1,11 +1,15 @@
 {
   "name": "fast-excel-to-json",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "files": [
     "excel_to_json_bg.wasm",
     "excel_to_json.js",
     "excel_to_json.d.ts"
+  ],
+  "keywords": [
+    "rust",
+    "wasm"
   ],
   "main": "excel_to_json.js",
   "types": "excel_to_json.d.ts",
@@ -14,7 +18,7 @@
     "url": "git+https://github.com/jaemin1005/fast-excel-to-json.git"
   },
   "author": "jaemin1005",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jaemin1005/fast-excel-to-json/issues"
   }
