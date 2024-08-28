@@ -8,8 +8,19 @@
     "excel_to_json.d.ts"
   ],
   "keywords": [
+    "node",
+    "nodejs",
+    "npm",
+    "wasm",
     "rust",
-    "wasm"
+    "xlsx",
+    "json",
+    "excel-to-json",
+    "multi-threading",
+    "performance",
+    "data-processing",
+    "conversion",
+    "high-performance"
   ],
   "main": "excel_to_json.js",
   "types": "excel_to_json.d.ts",
