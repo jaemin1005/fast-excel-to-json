@@ -9,6 +9,7 @@ This library provides functions for converting Excel files into JSON objects, wi
   - [Functions](#functions)
     - [`excel_to_json`](#excel_to_json)
     - [`all_excel_to_json`](#all_excel_to_json)
+    - [`csv_to_json`](#csv_to_json)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -24,18 +25,18 @@ npm install fast-excel-to-json
 To use the library, first require or import it in your JavaScript code:
 
 ```javascript
-const excelToJson = require('excel-to-json-conversion');
+const excelToJson = require('fast-excel-to-json');
 ```
 
 ### Functions
 
 #### `excel_to_json`
 
-Converts a specific sheet from an Excel file into a JSON object.
+Converts a specific sheet from an xlsx file into a JSON object.
 
 ##### Parameters:
 
-- `excel_data` (`Uint8Array`): The binary data of the Excel file.
+- `excel_data` (`Uint8Array`): The binary data of the xlsx file.
 - `sheet_index` (`number`): The index of the sheet you want to convert (0-based).
 - `is_iso8601` (`boolean`): A flag indicating whether dates should be formatted in ISO 8601 format.
 
@@ -47,7 +48,7 @@ Converts a specific sheet from an Excel file into a JSON object.
 
 ```javascript
 const fs = require('fs');
-const {excel_to_json} = require('fast-excel-to-json')
+const { excel_to_json } = require('fast-excel-to-json')
 
 const excelData = fs.readFileSync('example.xlsx');
 const sheetIndex = 0;
@@ -59,28 +60,52 @@ console.log(jsonData);
 
 #### `all_excel_to_json`
 
-Converts all sheets from an Excel file into JSON objects.
+Converts all sheets from an .xlsx file into JSON objects.
 
 ##### Parameters:
 
-- `excel_data` (`Uint8Array`): The binary data of the Excel file.
+- `excel_data` (`Uint8Array`): The binary data of the .xlsx file.
 - `is_iso8601` (`boolean`): A flag indicating whether dates should be formatted in ISO 8601 format.
 
 ##### Returns:
 
-- `any[]`: An array of JSON objects, where each object corresponds to a sheet in the Excel file.
+- `any[]`: An array of JSON objects, where each object corresponds to a sheet in the .xlsx file.
 
 ##### Example:
 
 ```javascript
 const fs = require('fs');
-const {all_excel_to_json} = require('fast-excel-to-json')
+const { all_excel_to_json } = require('fast-excel-to-json')
 
 const excelData = fs.readFileSync('example.xlsx');
 const isIso8601 = true;
 
 const allJsonData = all_excel_to_json(excelData, isIso8601);
 console.log(allJsonData);
+```
+
+#### `csv_to_json`
+
+Converts an .csv file into JSON objects.
+
+##### Parameters:
+
+- `csv_data` (`Uint8Array`): The binary data of the .csv file.
+
+##### Returns:
+
+- `(object)[]`: An array of JSON objects representing the data from .csv file.
+
+##### Example:
+
+```javascript
+const fs = require('fs');
+const { csv_to_json } = require('fast-excel-to-json')
+
+const data = fs.readFileSync('example.csv');
+
+const json = csv_to_json(data);
+console.log(json);
 ```
 
 ## Contributing
