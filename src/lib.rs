@@ -1,14 +1,12 @@
 use calamine::{Reader, Xlsx};
-use excel_time_func::{excel_time_to_unix_time::excel_time_to_unix_time, unix_to_iso::unix_to_iso};
 use js_sys::Object;
 use std::{io::Cursor, usize};
 use wasm_bindgen::prelude::*;
 
-use crate::map_to_object::map_to_object;
-
-pub mod excel_time_func;
-pub mod map_to_object;
-pub mod sheet_to_json;
+pub mod trans_json;
+use crate::trans_json::sheet_to_json;
+use crate::trans_json::map_to_object::map_to_object;
+use crate::trans_json::csv_to_json;
 
 #[wasm_bindgen]
 pub fn excel_to_json(excel_data: &[u8], sheet_index: usize, is_iso8601: bool) -> Vec<Object> {
@@ -54,6 +52,12 @@ pub fn all_excel_to_json(excel_data: &[u8], is_iso8601: bool) -> Vec<JsValue> {
     sheet_json
 }
 
+#[wasm_bindgen]
+pub fn csv_to_json(csv_data: &[u8]) -> Vec<js_sys::Object> {
+   let rows_json = csv_to_json::csv_to_json(csv_data);
+    map_to_object(rows_json) 
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -69,7 +73,7 @@ mod tests {
 
         // JSON 데이터가 예상대로 생성되었는지 확인
         assert_eq!(json.len(), 200);
-        console_log!("{:?}", json);
+        console_log!("excel sheet {:?}", json);
     }
 
     #[wasm_bindgen_test]
@@ -77,6 +81,12 @@ mod tests {
         // 엑셀 파일 대신 직접 데이터를 제공
         let excel_data = include_bytes!("../hello.xlsx");
         let json = all_excel_to_json(excel_data, true);
-        console_log!("{:?}", json);
+        console_log!("excel all sheets {:?}", json);
+    }
+
+    #[wasm_bindgen_test]
+    pub fn test_csv_to_json() {
+        let csv_data = include_bytes!("../test.csv");
+        console_log!("csv {:?}", csv_to_json(csv_data)); 
     }
 }
