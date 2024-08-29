@@ -16,6 +16,7 @@ pub fn map_to_object(map: Vec<Map<String, Value>>) -> Vec<js_sys::Object> {
         })
         .collect()
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
