@@ -22,7 +22,7 @@ pub fn excel_time_to_unix_time(excel_time : f64) -> i64 {
 
 #[cfg(test)]
 mod tests {
-    use crate::excel_time_func::excel_time_to_unix_time::excel_time_to_unix_time;
+    use crate::trans_json::excel_time_func::excel_time_to_unix_time::excel_time_to_unix_time;
 
     #[test]
     fn excel_time_to_unix_time_test() {
