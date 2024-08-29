@@ -6,20 +6,20 @@ use serde_json::Value;
 use std::io::Read;
 use std::io::Seek;
 
-use crate::excel_time_to_unix_time;
-use crate::unix_to_iso;
+use super::excel_time_func::excel_time_to_unix_time::excel_time_to_unix_time;
+use super::excel_time_func::unix_to_iso::unix_to_iso;
 
-pub fn sheet_to_json<R: Seek+Read>(
+pub fn sheet_to_json<R: Seek + Read>(
     workbook: &mut Xlsx<R>,
     sheet_name: &str,
     is_iso8601: bool,
 ) -> Vec<Map<String, Value>> {
     if let Ok(range) = workbook.worksheet_range(sheet_name) {
-        let headers = match range.headers()  {
+        let headers = match range.headers() {
             Some(headers) => headers,
-            None => return vec![] 
-        }; 
-        
+            None => return vec![],
+        };
+
         //* 기존의 Rows<'_, Data>는 rayon의 ParallelIterator 트레이트를 구현하지 않기 때문에 into_par_iter를 직접 사용할 수 없기 때문에 변경 */
         let rows: Vec<_> = range.rows().skip(1).collect();
 
@@ -77,7 +77,7 @@ mod test {
         let mut workbook: Xlsx<_> = open_workbook("hello.xlsx").unwrap();
         let sheet_names = workbook.sheet_names();
         let sheet_name = &sheet_names[0];
-        
+
         let _json = sheet_to_json(&mut workbook, sheet_name, true);
     }
 }
