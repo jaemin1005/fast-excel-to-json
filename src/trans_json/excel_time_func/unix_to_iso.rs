@@ -12,7 +12,8 @@ pub fn unix_to_iso(unix_time: i64) -> String {
 
 #[cfg(test)]
 mod test {
-    use crate::excel_time_func::unix_to_iso::unix_to_iso;
+    use crate::trans_json::excel_time_func::unix_to_iso::unix_to_iso;
+
 
     #[test]
     fn valid_unix_to_iso() {
